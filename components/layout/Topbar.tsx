@@ -1,8 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faArrowsRotate, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faSun, faMoon, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/lib/ThemeContext';
 
 const PAGE_TITLES: Record<string, string> = {
@@ -37,13 +38,14 @@ export function Topbar() {
           <FontAwesomeIcon icon={faBell} className="w-3.5 h-3.5" />
         </button>
 
-        {/* Refresh */}
-        <button
-          aria-label="Refresh"
+        {/* Profile */}
+        <Link
+          href="/profile"
+          aria-label="Go to profile"
           className="w-8 h-8 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         >
-          <FontAwesomeIcon icon={faArrowsRotate} className="w-3.5 h-3.5" />
-        </button>
+          <FontAwesomeIcon icon={faUser} className="w-3.5 h-3.5" />
+        </Link>
 
         {/* Dark / Light toggle */}
         <button
