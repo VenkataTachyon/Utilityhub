@@ -10,15 +10,13 @@ import {
   faWrench,
   faRightFromBracket,
   faBolt,
-  faChevronLeft,
-  faChevronRight,
+  faList,
 } from '@fortawesome/free-solid-svg-icons';
-import { cn } from '@/lib/cn';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: faTableCells },
-  { href: '/billing', label: 'Billing', icon: faFileInvoiceDollar },
-  { href: '/services', label: 'Services', icon: faWrench },
+  { href: '/billing',   label: 'Billing',   icon: faFileInvoiceDollar },
+  { href: '/services',  label: 'Services',  icon: faWrench },
 ];
 
 export function Sidebar() {
@@ -27,89 +25,172 @@ export function Sidebar() {
 
   return (
     <aside
-      className={cn(
-        'relative flex flex-col h-full bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out shrink-0',
-        collapsed ? 'w-[60px]' : 'w-[220px]'
-      )}
+      className="sidebar-glass flex flex-col h-screen shrink-0 overflow-hidden"
+      style={{
+        width: collapsed ? 56 : 220,
+        transition: 'width 0.2s ease',
+      }}
     >
-      {/* Collapse toggle button */}
-      <button
-        onClick={() => setCollapsed((c) => !c)}
-        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        className="absolute -right-3 top-[72px] z-10 w-6 h-6 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-      >
-        <FontAwesomeIcon
-          icon={collapsed ? faChevronRight : faChevronLeft}
-          className="w-2.5 h-2.5"
-        />
-      </button>
-
       {/* Logo */}
-      <div className="px-4 py-5 border-b border-gray-100 dark:border-gray-800 overflow-hidden">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-blue-700 rounded-md flex items-center justify-center text-white text-sm shrink-0">
-            <FontAwesomeIcon icon={faBolt} className="w-3.5 h-3.5" />
-          </div>
-          {!collapsed && (
-            <div className="overflow-hidden">
-              <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 whitespace-nowrap">UtilityHub</div>
-              <div className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">Customer Portal</div>
-            </div>
-          )}
+      <div
+        style={{
+          padding: collapsed ? '16px 10px' : '14px 14px 12px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          borderBottom: '1px solid var(--border-soft)',
+          flexShrink: 0,
+        }}
+      >
+        <div
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: 8,
+            background: '#6366f1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <FontAwesomeIcon icon={faBolt} style={{ width: 13, height: 13, color: 'white' }} />
         </div>
+        {!collapsed && (
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2, margin: 0 }}>
+              UtilityHub
+            </p>
+            <p style={{ fontSize: 10, color: 'var(--text-faint)', margin: 0 }}>Customer Portal</p>
+          </div>
+        )}
+        <button
+          onClick={() => setCollapsed((c) => !c)}
+          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          style={{
+            width: 24,
+            height: 24,
+            borderRadius: 6,
+            border: 'none',
+            background: 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            color: 'var(--text-faint)',
+            flexShrink: 0,
+          }}
+        >
+          <FontAwesomeIcon icon={faList} style={{ width: 13, height: 13 }} />
+        </button>
       </div>
 
-      {/* Main nav */}
-      <nav className="flex-1 px-2 py-3">
+      {/* Nav */}
+      <nav style={{ flex: 1, padding: '8px 6px', overflowY: 'auto' }}>
         {!collapsed && (
-          <div className="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-600 px-2 mb-1.5">
+          <div
+            style={{
+              fontSize: 10,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: 'var(--text-faint)',
+              padding: '4px 10px 6px',
+            }}
+          >
             Main
           </div>
         )}
-        <ul className="space-y-0.5">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                title={collapsed ? item.label : undefined}
-                className={cn(
-                  'flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm transition-colors',
-                  collapsed && 'justify-center px-2',
-                  pathname === item.href
-                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium'
-                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-200'
-                )}
-              >
-                <FontAwesomeIcon icon={item.icon} className="w-3.5 h-3.5 shrink-0" />
-                {!collapsed && item.label}
-              </Link>
-            </li>
-          ))}
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  title={collapsed ? item.label : undefined}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 9,
+                    padding: collapsed ? '7px 14px' : '7px 10px',
+                    borderRadius: 8,
+                    fontSize: 13,
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    background: isActive ? 'rgba(99,102,241,0.08)' : 'transparent',
+                    color: isActive ? '#6366f1' : 'var(--text-secondary)',
+                    justifyContent: collapsed ? 'center' : 'flex-start',
+                    transition: 'background 0.12s, color 0.12s',
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    style={{
+                      width: 15,
+                      height: 15,
+                      flexShrink: 0,
+                      opacity: isActive ? 1 : 0.7,
+                    }}
+                  />
+                  {!collapsed && item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
       {/* Account chip */}
-      <div className="px-2 py-3 border-t border-gray-100 dark:border-gray-800">
+      <div style={{ padding: '10px 6px', borderTop: '1px solid var(--border-soft)' }}>
         <div
-          className={cn(
-            'flex items-center gap-2.5 px-2.5 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg',
-            collapsed && 'justify-center px-2'
-          )}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 9,
+            padding: collapsed ? '8px 10px' : '8px 10px',
+            background: 'rgba(99,102,241,0.06)',
+            borderRadius: 10,
+            justifyContent: collapsed ? 'center' : 'flex-start',
+          }}
         >
-          <div className="w-7 h-7 rounded-full bg-blue-700 flex items-center justify-center text-xs text-white font-semibold shrink-0">
+          <div
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg,#6366f1,#8b5cf6)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 11,
+              fontWeight: 700,
+              color: 'white',
+              flexShrink: 0,
+            }}
+          >
             JD
           </div>
           {!collapsed && (
             <>
-              <div className="flex-1 min-w-0">
-                <div className="text-xs font-medium text-gray-800 dark:text-gray-200 truncate">John Doe</div>
-                <div className="text-[10px] text-gray-400 dark:text-gray-500">ACC-001234</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  John Doe
+                </div>
+                <div style={{ fontSize: 10, color: 'var(--text-faint)' }}>ACC-001234</div>
               </div>
               <button
                 aria-label="Sign out"
-                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 focus-visible:outline-none"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: 'var(--text-faint)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: 4,
+                }}
               >
-                <FontAwesomeIcon icon={faRightFromBracket} className="w-3.5 h-3.5" />
+                <FontAwesomeIcon icon={faRightFromBracket} style={{ width: 13, height: 13 }} />
               </button>
             </>
           )}

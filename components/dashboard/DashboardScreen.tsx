@@ -16,13 +16,13 @@ function QuickActionCard({ faIcon, title, description, href, iconBg, iconColorCl
   faIcon: IconDefinition; title: string; description: string; href: string; iconBg: string; iconColorClass: string;
 }) {
   return (
-    <Link href={href} className="flex items-center gap-3 p-3.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-blue-200 dark:hover:border-blue-700 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 transition-colors">
+    <Link href={href} className="template-card flex items-center gap-3 p-3.5" style={{ textDecoration: 'none' }}>
       <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${iconBg}`}>
         <FontAwesomeIcon icon={faIcon} className={`w-4 h-4 ${iconColorClass}`} />
       </div>
       <div>
-        <div className="text-sm font-medium text-gray-800 dark:text-gray-200">{title}</div>
-        <div className="text-xs text-gray-400 dark:text-gray-500">{description}</div>
+        <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{title}</div>
+        <div className="text-xs" style={{ color: 'var(--text-faint)' }}>{description}</div>
       </div>
     </Link>
   );
@@ -56,28 +56,28 @@ export function DashboardScreen() {
       {/* Balance cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <Card>
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Current due</div>
-          <div className="text-xl font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(account.balance.currentDue)}</div>
-          <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Due {formatDate(account.nextDueDate)}</div>
+          <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Current due</div>
+          <div className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>{formatCurrency(account.balance.currentDue)}</div>
+          <div className="text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>Due {formatDate(account.nextDueDate)}</div>
         </Card>
         <Card>
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Past due</div>
+          <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Past due</div>
           <div className="text-xl font-semibold text-emerald-600 dark:text-emerald-400">{formatCurrency(account.balance.pastDue)}</div>
-          <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">No outstanding balance</div>
+          <div className="text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>No outstanding balance</div>
         </Card>
         <Card>
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Last payment</div>
-          <div className="text-xl font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(account.lastPayment.amount)}</div>
-          <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{formatDate(account.lastPayment.date)}</div>
+          <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Last payment</div>
+          <div className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>{formatCurrency(account.lastPayment.amount)}</div>
+          <div className="text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>{formatDate(account.lastPayment.date)}</div>
         </Card>
         <Card>
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Paperless billing</div>
+          <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Paperless billing</div>
           <div className="mt-1.5">
             <Badge variant={paperless ? 'success' : 'gray'}>
               {paperless ? '✓ Enabled' : 'Disabled'}
             </Badge>
           </div>
-          <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+          <div className="text-xs mt-1" style={{ color: 'var(--text-faint)' }}>
             {paperless ? 'Bills sent to email' : 'Paper bills mailed'}
           </div>
         </Card>

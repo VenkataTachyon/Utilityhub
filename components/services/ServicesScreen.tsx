@@ -63,9 +63,9 @@ function ServiceOrdersTab() {
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr className="bg-gray-50 dark:bg-gray-800/60">
+              <tr style={{ background: 'var(--bg-btn)' }}>
                 {['Type', 'Description', 'Status', 'Scheduled', 'Completed', ''].map((h) => (
-                  <th key={h} className="text-left text-[11px] text-gray-400 dark:text-gray-500 font-medium px-3 py-2.5 border-b border-gray-100 dark:border-gray-800">{h}</th>
+                  <th key={h} className="text-left text-[11px] font-medium px-3 py-2.5" style={{ color: 'var(--text-faint)', borderBottom: '1px solid var(--border-soft)' }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -143,10 +143,11 @@ function MoveRequestTab() {
   return (
     <Card className="max-w-lg">
       <div className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-4">Move request</div>
-      <div className="flex border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden mb-4 w-fit">
+      <div className="flex rounded-lg overflow-hidden mb-4 w-fit" style={{ border: '1px solid var(--border-mid)' }}>
         {(['Move in', 'Move out'] as const).map((t) => (
           <button key={t} onClick={() => setMoveType(t)}
-            className={`px-3 py-1 text-xs font-medium transition-colors focus-visible:outline-none ${moveType === t ? 'bg-blue-700 text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'}`}>
+            className="px-3 py-1 text-xs font-medium transition-colors focus-visible:outline-none"
+            style={moveType === t ? { background: '#6366f1', color: 'white' } : { background: 'var(--bg-btn)', color: 'var(--text-muted)' }}>
             {t}
           </button>
         ))}
@@ -171,12 +172,12 @@ function MoveRequestTab() {
           <div className="text-xs text-gray-400 dark:text-gray-500">Technician will read meter on move date</div>
         </div>
         <button role="switch" aria-checked={finalMeter} onClick={() => setFinalMeter((v) => !v)}
-          className={`relative w-9 h-5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${finalMeter ? 'bg-blue-700' : 'bg-gray-300 dark:bg-gray-600'}`}>
+          className={`relative w-9 h-5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${finalMeter ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'}`}>
           <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${finalMeter ? 'translate-x-4' : ''}`} />
         </button>
       </div>
-      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 mb-4">
-        <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">Summary</div>
+      <div className="rounded-xl p-3 mb-4" style={{ background: 'var(--bg-btn)', border: '1px solid var(--border-soft)' }}>
+        <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)' }}>Summary</div>
         <KvRow label="Move type" value={moveType} />
         <KvRow label="Effective date" value={moveDate || '—'} />
         <KvRow label={moveType === 'Move in' ? 'New address' : 'Forwarding address'} value={street ? `${street}, ${city} ${state} ${zip}`.trim().replace(/,\s*$/, '') : '—'} />

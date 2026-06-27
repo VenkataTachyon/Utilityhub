@@ -83,33 +83,33 @@ export function ProfileScreen() {
         <div>
           <SectionTitle>Addresses</SectionTitle>
           <div className="flex flex-col gap-3">
-            <div className="border border-gray-200 dark:border-gray-800 rounded-xl p-3.5 bg-white dark:bg-gray-900">
+            <div className="content-card p-3.5">
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="text-xs text-gray-400 dark:text-gray-500 mb-1 flex items-center gap-1.5">
+                  <div className="text-xs mb-1 flex items-center gap-1.5" style={{ color: 'var(--text-faint)' }}>
                     <FontAwesomeIcon icon={faLocationDot} className="w-3 h-3" /> Billing address
                   </div>
-                  <div className="text-sm font-medium text-gray-800 dark:text-gray-200">123 Main Street</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">Springfield, IL 62701</div>
+                  <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>123 Main Street</div>
+                  <div className="text-sm" style={{ color: 'var(--text-muted)' }}>Springfield, IL 62701</div>
                 </div>
                 <Button size="sm" onClick={() => setAddressModalOpen(true)}>
                   <FontAwesomeIcon icon={faPen} className="w-3 h-3" /> Edit
                 </Button>
               </div>
             </div>
-            <div className="border border-gray-200 dark:border-gray-800 rounded-xl p-3.5 bg-gray-50 dark:bg-gray-800/50">
+            <div className="content-card p-3.5">
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="text-xs text-gray-400 dark:text-gray-500 mb-1 flex items-center gap-2">
+                  <div className="text-xs mb-1 flex items-center gap-2" style={{ color: 'var(--text-faint)' }}>
                     <FontAwesomeIcon icon={faLocationDot} className="w-3 h-3" /> Service address
-                    <span className="bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-[10px] px-1.5 py-0.5 rounded flex items-center gap-1">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded flex items-center gap-1" style={{ background: 'var(--bg-btn)', color: 'var(--text-faint)' }}>
                       <FontAwesomeIcon icon={faLock} className="w-2.5 h-2.5" /> read-only
                     </span>
                   </div>
-                  <div className="text-sm font-medium text-gray-800 dark:text-gray-200">123 Main Street</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">Springfield, IL 62701</div>
-                  <div className="text-xs text-gray-400 dark:text-gray-500 mt-1.5">
-                    Change via <a href="/services?tab=Move+request" className="text-blue-700 dark:text-blue-400 hover:underline">Move request</a>
+                  <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>123 Main Street</div>
+                  <div className="text-sm" style={{ color: 'var(--text-muted)' }}>Springfield, IL 62701</div>
+                  <div className="text-xs mt-1.5" style={{ color: 'var(--text-faint)' }}>
+                    Change via <a href="/services?tab=Move+request" style={{ color: 'var(--text-link)' }} className="hover:underline">Move request</a>
                   </div>
                 </div>
               </div>
@@ -124,13 +124,13 @@ export function ProfileScreen() {
               <Toggle checked={paperless} onChange={setPaperless} />
             </PreferenceRow>
             <PreferenceRow title="Email notifications">
-              <input type="checkbox" checked={emailNotif} onChange={(e) => setEmailNotif(e.target.checked)} className="w-4 h-4 accent-blue-700 cursor-pointer" />
+              <input type="checkbox" checked={emailNotif} onChange={(e) => setEmailNotif(e.target.checked)} className="w-4 h-4 accent-indigo-600 cursor-pointer" />
             </PreferenceRow>
             <PreferenceRow title="SMS alerts">
-              <input type="checkbox" checked={smsNotif} onChange={(e) => setSmsNotif(e.target.checked)} className="w-4 h-4 accent-blue-700 cursor-pointer" />
+              <input type="checkbox" checked={smsNotif} onChange={(e) => setSmsNotif(e.target.checked)} className="w-4 h-4 accent-indigo-600 cursor-pointer" />
             </PreferenceRow>
             <PreferenceRow title="Phone call notifications">
-              <input type="checkbox" checked={phoneNotif} onChange={(e) => setPhoneNotif(e.target.checked)} className="w-4 h-4 accent-blue-700 cursor-pointer" />
+              <input type="checkbox" checked={phoneNotif} onChange={(e) => setPhoneNotif(e.target.checked)} className="w-4 h-4 accent-indigo-600 cursor-pointer" />
             </PreferenceRow>
           </Card>
         </div>
