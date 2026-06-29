@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/lib/ThemeContext';
+import { useAuth, getInitials } from '@/lib/AuthContext';
 
 const PAGE_TITLES: Record<string, string> = {
   '/dashboard': 'Dashboard',
@@ -37,6 +38,7 @@ export function Topbar() {
   const pathname = usePathname();
   const title = PAGE_TITLES[pathname] ?? 'Portal';
   const { theme, toggleTheme } = useTheme();
+  const { user } = useAuth();
   const isDark = theme === 'dark';
 
   return (
@@ -120,7 +122,7 @@ export function Topbar() {
             textDecoration: 'none',
           }}
         >
-          JD
+          {user ? getInitials(user.fullName) : '?'}
         </Link>
       </div>
     </header>

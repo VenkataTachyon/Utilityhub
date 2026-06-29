@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTableCells,
@@ -12,6 +12,7 @@ import {
   faBolt,
   faList,
 } from '@fortawesome/free-solid-svg-icons';
+import { useAuth, getInitials } from '@/lib/AuthContext';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: faTableCells },
@@ -21,7 +22,14 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   return (
     <aside
@@ -168,18 +176,19 @@ export function Sidebar() {
               flexShrink: 0,
             }}
           >
-            JD
+            {user ? getInitials(user.fullName) : '?'}
           </div>
           {!collapsed && (
             <>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  John Doe
+                  {user?.fullName ?? '—'}
                 </div>
-                <div style={{ fontSize: 10, color: 'var(--text-faint)' }}>ACC-001234</div>
+                <div style={{ fontSize: 10, color: 'var(--text-faint)' }}>{user?.accountNumber ?? '—'}</div>
               </div>
               <button
                 aria-label="Sign out"
+                onClick={handleLogout}
                 style={{
                   background: 'none',
                   border: 'none',

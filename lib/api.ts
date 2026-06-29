@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { ApiResponse, ApiError } from '@/types';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'https://api.domain.com/v1';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8080/v1';
 
 function getToken(): string | null {
   if (typeof window === 'undefined') return null;
